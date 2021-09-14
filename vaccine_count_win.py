@@ -12,6 +12,7 @@ import datetime
 import os
 import tkinter
 import sys
+import tkinter.font as tkFont
 from tkinter import Tk
 from tkinter import filedialog
 # cell border style, font bold, font normal, center 정렬, cell 음영 정의
@@ -31,8 +32,7 @@ try:
     ## 파일이름, 경로 변수 저장
     user_def = os.path.join(os.path.expanduser('~'),'Desktop') + '\\'
     root = Tk()
-    root.filename = filedialog.askopenfilename(initialdir = user_def,title="Choose your file", filetypes = (("csv files","*.csv"),("all files","*.*")))
-    #다운로드받은 파일이름이 1.csv가 아닌경우 변경해주세요
+    root.filename = filedialog.askopenfilename(initialdir = user_def, title="Choose your file", filetypes = (("csv files","*.csv"),("all files","*.*")))
     #저장하고 싶은 엑셀파일 이름이 있으면 변경해주세요. 꼭 확장자까지 변경해야 합니다.
     ########################## 파일명 변경 ##########################################
     csv_file_name = os.path.basename(root.filename)
@@ -246,15 +246,23 @@ try:
                 ws2.cell(i,j).border = border_thick
     wb.save(path_xlsx_2) #최종본.xlsx로 저장
     wb.close()
-    root.geometry("220x50")
-    root.title("변환완료")
+    root.geometry("220x150")
+    root.title("VC")
+    lbl = tkinter.Label(root, text='변환완료', font=tkFont.Font(family="맑은 고딕", size=15, weight='bold'))
+    lbl.place(x=65, y=35)
     button = tkinter.Button(text = "OK", command = root.destroy)
-    button.place(x=90, y=13)
+    button.place(x=95, y=100)
     root.mainloop()
 except:
-    print("Unexpected error:", sys.exc_info()[0])
-    root.geometry("200x50")
+    #print("Unexpected error:", sys.exc_info()[0])
+    root.geometry("220x150")
     root.title("!에러")
+    err_msg = "Unexpected error:"
+    err_msg2 = str(sys.exc_info()[0])
+    lbl = tkinter.Label(root, text=err_msg, font=tkFont.Font(family="맑은 고딕", size=15, weight='bold'))
+    lbl2 = tkinter.Label(root, text=err_msg2, font=tkFont.Font(family="맑은 고딕", size=15, weight='bold'))
+    lbl.place(x=15, y=25)
+    lbl2.place(x=10, y=55)
     button = tkinter.Button(text = "OK", command = root.destroy)
-    button.place(x=90, y=13)  
+    button.place(x=95, y=100)  
     root.mainloop()
