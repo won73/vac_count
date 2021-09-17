@@ -128,9 +128,10 @@ try:
             new_weekday=w_date.strftime("%a")#w_date에서 요일 'Wed'타입으로 불러 new_weekday에 넣음(str 형식)
             ws.cell(i,1, value=new_date)
             ws.cell(i,2, value=new_weekday)#두번째 cell에 요일을 넣음
+            print(ws.cell(i,1).value)
             for j in range(1,8):
                 ws.cell(i,j).border = border #8번째 셀까지 전체 thin border
-        elif  (ws.cell(i,1).value != None) and (ws.cell(i+1,1).value == None):
+        elif ((ws.cell(i,1).value != None) and (ws.cell(i+1,1).value == None)) or ((ws.cell(i,1).value != None) and (ws.cell(i,1).value != ws.cell(i+1,1).value)):
             r_date = ws.cell(i,1).value #str 타입 날자를 r_date에 넣음
             dateFormatter = "%Y-%m-%d" #날자 포맷 형식
             w_date=datetime.datetime.strptime(r_date, dateFormatter) #str 타입 날자를 date/time타입 날자로 변경(변수 w_date)
